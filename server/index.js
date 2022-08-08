@@ -1,14 +1,21 @@
 const express = require("express");
-const { sequelize } = require("./models");
+const cors = require("cors");
+let bodyParser = require("body-parser");
 
 const app = express();
 const port = process.env.PORT || 3100;
 
 const userRoutes = require("./routes/user");
 
-app.use("api/user", userRoutes);
+let db = require("./models");
 
-app.listen(port, async () => {
-  `App runs on port ${port}`;
-  await sequelize.sync({ force: true });
+app.use(cors());
+app.use(bodyParser.json());
+
+app.use("/api/user", userRoutes);
+
+db.sequelize.sync({ force: true }).then(function () {
+  app.listen(port, () => {
+    console.log(`App listening on ${port}`);
+  });
 });
