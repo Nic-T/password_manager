@@ -5,3 +5,5 @@ const isAuthentificathed = (req, res, next) => {
   }
   next(err);
 };
+
+module.exports = isAuthentificathed;
