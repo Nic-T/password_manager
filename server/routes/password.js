@@ -14,6 +14,6 @@ router.put("/edit-password", editPasswordEntry);
 
 router.delete("/delete-password", deletePasswordEntry);
 
-router.get("/generate-password", generatePassword);
+router.post("/generate-password", generatePassword);
 
 module.exports = router;
