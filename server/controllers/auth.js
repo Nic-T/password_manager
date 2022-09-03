@@ -32,7 +32,7 @@ const login = async (req, res) => {
       return console.error("Password does not match");
     }
 
-    req.session.user = user;
+    req.session.userId = user.id;
     console.log(req.session.id);
     res.json("you are logged in");
   } catch (err) {

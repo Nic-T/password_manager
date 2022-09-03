@@ -13,6 +13,7 @@ const port = process.env.PORT || 3100;
 // app.set('trust proxy',1)
 
 const authRoutes = require("./routes/auth");
+const passRoutes = require("./routes/password");
 
 app.use(session);
 app.use(cors());
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/auth", authRoutes);
+app.use("/api/pass", passRoutes);
 
 db.sequelize.sync({ force: true }).then(function () {
   app.listen(port, () => {
