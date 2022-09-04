@@ -24,6 +24,9 @@ const editPasswordEntry = async (req, res) => {
 
 const deletePasswordEntry = async (req, res) => {
   try {
+    const { id } = req.body;
+    await Password.destroy({ where: { id: id } });
+    res.json("User deleted");
   } catch (err) {
     console.error(err);
   }
