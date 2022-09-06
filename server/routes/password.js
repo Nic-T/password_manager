@@ -6,7 +6,13 @@ const {
   editPasswordEntry,
   deletePasswordEntry,
   generatePassword,
+  getPasswordEntries,
+  getPasswordEntry,
 } = require("../controllers/password");
+
+router.get("/get-password", getPasswordEntry);
+
+router.get("/get-passwords", getPasswordEntries);
 
 router.post("/create-password", createPasswordEntry);
 
