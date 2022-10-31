@@ -1,9 +1,13 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -14,7 +18,11 @@ function Register() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
-    });
+    })
+      .then(navigate("/login"))
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
@@ -24,9 +32,9 @@ function Register() {
           <h1 class="text-2xl"> Sign Up</h1>
           <p class="my-2">
             Already have an account?{" "}
-            <a href="" class="text-blue-700">
+            <Link to="/login" class="text-blue-700">
               Sign In
-            </a>
+            </Link>
           </p>
         </div>
 
