@@ -78,7 +78,10 @@ const generatePassword = async (req, res) => {
       let number = Math.floor(Math.random() * chars.length);
       password += chars.substring(number, number + 1);
     }
-    res.json(password);
+
+    const data = { password };
+
+    res.json(data);
   } catch (err) {
     console.error(err);
   }
