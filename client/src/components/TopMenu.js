@@ -1,13 +1,19 @@
-  import { useState } from 'react'
+import AddItemsModal from "../modals/AddItemsModal";
+
+import { useState } from "react";
 
 function TopMenu() {
+  const [modalState, setModalState] = useState(false);
 
-  const [modalState, setModalState] = useState(false)
+  function openModal() {
+    setModalState(!modalState);
+  }
 
   return (
     <div class="bg-green-400 h-auto">
+      <AddItemsModal show={modalState} action={openModal} />
       <div>
-        <button onClick={setModalState(true)}>Add Items</button>
+        <button onClick={openModal}>Add Items</button>
       </div>
       <div>
         <h1>Logo</h1>
