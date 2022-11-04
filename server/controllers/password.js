@@ -24,12 +24,14 @@ const getPasswordEntry = async (req, res) => {
 
 const createPasswordEntry = async (req, res) => {
   try {
-    const { password, email } = req.body;
+    const { password, email, name, url } = req.body;
 
     const passwordEntry = await Password.create({
       password: password,
       email: email,
-      UserId: req.session.userId,
+      name: name,
+      url:url,
+      UserId: req.session.userID,
     });
     res.json(passwordEntry);
   } catch (err) {

@@ -1,6 +1,7 @@
 const { sequelize, User } = require("../models");
 const passport = require("passport");
 const bcrypt = require("bcrypt");
+const { session } = require("passport");
 
 const register = async (req, res) => {
   try {
@@ -19,7 +20,6 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-
     const user = await User.findOne({ where: { email: email } });
 
     if (!user) {
@@ -31,10 +31,11 @@ const login = async (req, res) => {
     if (!match) {
       return console.error("Password does not match");
     }
-
-    req.session.userId = user.id;
-    console.log(req.session.id);
-    res.json("you are logged in");
+    req.session.userID = user.id;
+    req.session.save(() => {
+      console.log(req.session)
+    })
+    res.json("It works");
   } catch (err) {
     console.error(err);
   }
