@@ -16,6 +16,7 @@ function Login() {
 
     fetch("http://localhost:3100/api/auth/login", {
       method: "POST",
+      credentials:'include',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     })
