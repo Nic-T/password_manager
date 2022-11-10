@@ -1,37 +1,31 @@
 "use strict";
-const { Model } = require("sequelize");
-const { Sequelize } = require("sequelize");
+
+const { Model, Sequelize } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Password extends Model {
+  class Folder extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Password.belongsTo(models.User);
-      models.User.hasMany(Password);
-
-      Password.belongsTo(models.Folder);
-      models.Folder.hasMany(Password);
+      Folder.belongsTo(models.User);
+      models.User.hasMany(Folder);
     }
   }
-  Password.init(
+  Folder.init(
     {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
       },
-      password: DataTypes.STRING,
-      email: DataTypes.STRING,
       name: DataTypes.STRING,
-      url: DataTypes.STRING,
     },
     {
       sequelize,
-      modelName: "Password",
+      modelName: "Folder",
     }
   );
-  return Password;
+  return Folder;
 };
