@@ -1,11 +1,13 @@
+import React from "react";
 import { useState } from "react";
+import { ReactComponent as RefreshButton } from "../images/refresh.svg";
 
 function AddItemsModal({ show, action }) {
   const [generatedPassword, setGeneratedPassword] = useState("");
-  const [passwordLength, setPasswordLength] = useState(""); 
-  const [name,setName] = useState("")
-  const [email,setEmail] = useState("")
-  const [url,setUrl] = useState("")
+  const [passwordLength, setPasswordLength] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [url, setUrl] = useState("");
 
   function generatePassword(event) {
     event.preventDefault();
@@ -26,19 +28,25 @@ function AddItemsModal({ show, action }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-        
-    const data = {password: generatedPassword, email:email, name:name, url:url}
-    
+
+    const data = {
+      password: generatedPassword,
+      email: email,
+      name: name,
+      url: url,
+    };
+
     fetch("http://localhost:3100/api/pass/create-password", {
-      method:"POST",
-      credentials:'include',
-      headers: {"Content-Type": "application/json"},
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     })
       .then((response) => response.json())
       .then((data) => console.log(data))
-      .catch((error) => {console.error("Error", error)})
-
+      .catch((error) => {
+        console.error("Error", error);
+      });
   }
 
   if (show === false) {
@@ -47,36 +55,71 @@ function AddItemsModal({ show, action }) {
   return (
     <div class="fixed flex  left-0 top-0 w-full h-full bg-[#00000099] justify-center items-center">
       <div class="fixed bg-white w-5/12 h-auto top-50 left-50 ">
-        <form onSubmit={handleSubmit}>
-          <label>Name</label>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
+        <form class="flex flex-row" onSubmit={handleSubmit}>
+          <div class="flex flex-col">
+            <div class="inline-block p-1.5 border rounded-lg">
+              <label class="block text-xs text-gray-500">Name</label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div class="inline-block p-1.5 border rounded-lg">
+              <label class="block text-xs text-gray-500">Email</label>
+              <input
+                class="block leading-5  outline-0 border-0 w-full p-1"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div class="inline-block p-1.5 border rounded-lg">
+              <label class="block text-xs text-gray-500">Password</label>
+              <div class="flex">
+                <input
+                  class="block leading-5  outline-0 border-0 w-full p-1"
+                  type="text"
+                  value={generatedPassword}
+                  onChange={(e) => setGeneratedPassword(e.target.value)}
+                />
+              </div>
+            </div>
+            <div class="inline-block p-1.5 border rounded-lg">
+              <label class="block text-xs text-gray-500">URL</label>
+              <input
+                class="block leading-5  outline-0 border-0 w-full p-1"
+                type="url"
+                name="url"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+              />{" "}
+            </div>
+          </div>
 
-          <label>Email</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+          <div>
+            <div class="inline-block p-1.5 border rounded-lg flex ">
+              <button class="block rounded-md w-fit" onClick={generatePassword}>
+                <RefreshButton class="scale-75	" />
+              </button>
+              <label class="block text-xs text-gray-500">Length</label>
 
-          <label>Length</label>
-          <input
-            type="number"
-            value={passwordLength}
-            onChange={(e) => setPasswordLength(e.target.value)}
-          />
-          <button onClick={generatePassword}>Generate Pass</button>
-          <input
-            type="text"
-            value={generatedPassword}
-            onChange={(e) => setGeneratedPassword(e.target.value)}
-          />
+              <input
+                class="block leading-5  outline-0 border-0 w-full p-1"
+                type="number"
+                value={passwordLength}
+                onChange={(e) => setPasswordLength(e.target.value)}
+              />
+            </div>
 
-          
-          <label>Folder</label>
-          <select name="folders"></select>
-
-          <label>URL</label>
-          <input
-            type="url"
-            name="url"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}/>
+            <div class="inline-block p-1.5 border rounded-lg">
+              <label class="block text-xs text-gray-500">Folder</label>
+              <select
+                class="block leading-5  outline-0 border-0 w-full p-1"
+                name="folders"
+              ></select>
+            </div>
+          </div>
 
           <button type="submit">Save</button>
         </form>
