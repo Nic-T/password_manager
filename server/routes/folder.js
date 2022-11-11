@@ -11,7 +11,7 @@ const {
 
 router.post("/create-folder", createFolder);
 
-router.get("/get-folders-content", getFolders);
+router.get("/get-folders", getFolders);
 
 router.get("/get-folder-content", getFolderContent);
 

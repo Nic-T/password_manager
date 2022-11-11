@@ -14,18 +14,22 @@ const port = process.env.PORT || 3100;
 
 const authRoutes = require("./routes/auth");
 const passRoutes = require("./routes/password");
+const folderRoutes = require("./routes/folder");
 
 app.use(session);
-app.use(cors({
-  origin:"http://localhost:3000",
-  method: ["POST","PUT","GET","OPTIONS","HEAD"],
-  credentials:true,
-}));
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    method: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
+    credentials: true,
+  })
+);
 app.use(express.json());
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/pass", passRoutes);
+app.use("/api/folder", folderRoutes);
 
 db.sequelize.sync({ force: true }).then(function () {
   app.listen(port, () => {

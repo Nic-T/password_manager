@@ -24,14 +24,15 @@ const getPasswordEntry = async (req, res) => {
 
 const createPasswordEntry = async (req, res) => {
   try {
-    const { password, email, name, url } = req.body;
+    const { password, email, name, url, folder } = req.body;
 
     const passwordEntry = await Password.create({
       password: password,
       email: email,
       name: name,
-      url:url,
+      url: url,
       UserId: req.session.userID,
+      FolderId: folder,
     });
     res.json(passwordEntry);
   } catch (err) {
