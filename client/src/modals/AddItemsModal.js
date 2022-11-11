@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ReactComponent as RefreshButton } from "../images/refresh.svg";
 
 function AddItemsModal({ show, action }) {
@@ -8,6 +7,24 @@ function AddItemsModal({ show, action }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [url, setUrl] = useState("");
+  const [folders, setFolders] = useState({});
+  const [folder, setFolder] = useState("");
+
+  useEffect(() => {
+    getFolders();
+  }, []);
+
+  function getFolders() {
+    fetch("http://localhost:3100/api/folder/get-folders", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((data) => setFolders(data))
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
   function generatePassword(event) {
     event.preventDefault();
@@ -29,11 +46,14 @@ function AddItemsModal({ show, action }) {
   function handleSubmit(event) {
     event.preventDefault();
 
+    console.log(folder);
+
     const data = {
       password: generatedPassword,
       email: email,
       name: name,
       url: url,
+      folder: folder,
     };
 
     fetch("http://localhost:3100/api/pass/create-password", {
@@ -115,9 +135,21 @@ function AddItemsModal({ show, action }) {
             <div class="inline-block p-1.5 border rounded-lg">
               <label class="block text-xs text-gray-500">Folder</label>
               <select
+                onChange={(e) => setFolder(e.target.value)}
                 class="block leading-5  outline-0 border-0 w-full p-1"
                 name="folders"
-              ></select>
+                id="folders-select"
+              >
+                {folders.map((folder) => (
+                  <option
+                    key={folder.id}
+                    value={folder.id}
+                    selectedid={folder.id}
+                  >
+                    {folder.name}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 
