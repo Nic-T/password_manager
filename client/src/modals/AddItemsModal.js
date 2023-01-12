@@ -7,7 +7,7 @@ function AddItemsModal({ show, action }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [url, setUrl] = useState("");
-  const [folders, setFolders] = useState({});
+  const [folders, setFolders] = useState([]);
   const [folder, setFolder] = useState("");
 
   useEffect(() => {
@@ -74,9 +74,9 @@ function AddItemsModal({ show, action }) {
   }
   return (
     <div class="fixed flex  left-0 top-0 w-full h-full bg-[#00000099] justify-center items-center">
-      <div class="fixed bg-white w-5/12 h-auto top-50 left-50 ">
-        <form class="flex flex-row" onSubmit={handleSubmit}>
-          <div class="flex flex-col">
+      <div class="fixed bg-white w-5/12 h-auto top-50 left-50 rounded-md h-2/3">
+        <form class="flex flex-row space-x-8 p-8" onSubmit={handleSubmit}>
+          <div class="flex flex-col space-y-8">
             <div class="inline-block p-1.5 border rounded-lg">
               <label class="block text-xs text-gray-500">Name</label>
               <input
@@ -117,10 +117,13 @@ function AddItemsModal({ show, action }) {
             </div>
           </div>
 
-          <div>
+          <div class="flex flex-col space-y-8">
             <div class="inline-block p-1.5 border rounded-lg flex ">
-              <button class="block rounded-md w-fit" onClick={generatePassword}>
-                <RefreshButton class="scale-75	" />
+              <button
+                class="block rounded-md w-fit h-fit "
+                onClick={generatePassword}
+              >
+                <RefreshButton class="w-fit h-fit" />
               </button>
               <label class="block text-xs text-gray-500">Length</label>
 
