@@ -6,6 +6,7 @@ const createFolder = async (req, res) => {
 
     const folderEntry = await Folder.create({
       name: name,
+      UserId: req.session.userID,
     });
     res.json(folderEntry);
   } catch (err) {

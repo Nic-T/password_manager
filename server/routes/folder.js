@@ -13,7 +13,7 @@ router.post("/create-folder", createFolder);
 
 router.get("/get-folders", getFolders);
 
-router.get("/get-folder-content", getFolderContent);
+router.post("/get-folder-content", getFolderContent);
 
 router.put("/edit-folder", editFolder);
 

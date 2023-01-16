@@ -31,8 +31,13 @@ app.use("/api/auth", authRoutes);
 app.use("/api/pass", passRoutes);
 app.use("/api/folder", folderRoutes);
 
-db.sequelize.sync({ force: true }).then(function () {
-  app.listen(port, () => {
-    console.log(`App listening on ${port}`);
+db.sequelize
+  .sync({ force: true })
+  .then(function () {
+    app.listen(port, () => {
+      console.log(`App listening on ${port}`);
+    });
+  })
+  .catch((error) => {
+    console.error(error);
   });
-});
