@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Folder from "../components/Folder";
+import AddFolder from "./AddFolder";
 
 function Folders() {
   const [folders, setFolders] = useState([]);
+  const [reload, setReload] = useState(1);
 
   useEffect(() => {
+    getFolders();
+  }, [reload]);
+
+  const startReload = (reload) => {
+    setReload((reload) => reload + 1);
+  };
+
+  function getFolders() {
     fetch("http://localhost:3100/api/folder/get-folders", {
       method: "GET",
       credentials: "include",
@@ -22,10 +32,11 @@ function Folders() {
       .catch((error) => {
         console.error("Error", error);
       });
-  }, []);
+  }
 
   return (
     <div>
+      <AddFolder startReload={startReload} />
       <div class="flex flex-col">
         {folders.map((folder) => (
           <Folder name={folder.name} id={folder.id} key={folder.id} />

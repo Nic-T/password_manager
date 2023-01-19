@@ -45,9 +45,6 @@ function AddItemsModal({ show, action }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(folders);
-    console.log(url);
-    console.log(folder);
     const data = {
       password: generatedPassword,
       email: email,

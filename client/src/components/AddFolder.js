@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function AddFolder() {
+function AddFolder({ startReload }) {
   const [open, setOpen] = useState(false);
   const [folder, setFolder] = useState();
 
@@ -29,6 +29,8 @@ function AddFolder() {
             console.error("Error", error);
           });
         setOpen(false);
+        setFolder("");
+        startReload();
       }
     }
   }

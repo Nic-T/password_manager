@@ -16,11 +16,11 @@ module.exports = (sequelize, DataTypes) => {
   Folder.init(
     {
       id: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      name: DataTypes.STRING,
+      name: { type: DataTypes.STRING },
     },
     {
       sequelize,
