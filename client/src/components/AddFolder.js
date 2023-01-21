@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { useRecoilState } from "recoil";
 
-function AddFolder({ startReload }) {
+import { checkState } from "../stores/checkAtom";
+
+function AddFolder() {
   const [open, setOpen] = useState(false);
   const [folder, setFolder] = useState();
+  const [check, setCheck] = useRecoilState(checkState);
 
   if (open === false) {
     return <button onClick={() => setOpen(true)}>+</button>;
@@ -29,8 +33,7 @@ function AddFolder({ startReload }) {
             console.error("Error", error);
           });
         setOpen(false);
-        setFolder("");
-        startReload();
+        setCheck(check + 1);
       }
     }
   }

@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Folder from "../components/Folder";
 import AddFolder from "./AddFolder";
+import { useRecoilState } from "recoil";
+
+import { foldersState } from "../stores/foldersAtom";
+import { checkState } from "../stores/checkAtom";
 
 function Folders() {
-  const [folders, setFolders] = useState([]);
-  const [reload, setReload] = useState(1);
+  const [folders, setFolders] = useRecoilState(foldersState);
+  const [check, setCheck] = useRecoilState(checkState);
 
   useEffect(() => {
     getFolders();
-  }, [reload]);
-
-  const startReload = (reload) => {
-    setReload((reload) => reload + 1);
-  };
+  }, [check]);
 
   function getFolders() {
     fetch("http://localhost:3100/api/folder/get-folders", {
@@ -36,7 +36,7 @@ function Folders() {
 
   return (
     <div>
-      <AddFolder startReload={startReload} />
+      <AddFolder />
       <div class="flex flex-col">
         {folders.map((folder) => (
           <Folder name={folder.name} id={folder.id} key={folder.id} />
